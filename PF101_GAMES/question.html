@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PF101 Question Bank</title>
+  <style>
+    :root { --bg:#f8fafc; --panel:#fff; --line:#e4e7ec; --text:#172033; --muted:#667085; --primary:#2563eb; --purple:#3455db; --green:#087a5b; --red:#c63752; --shadow:0 12px 28px rgba(16,24,40,.08); }
+    * { box-sizing:border-box; } body { margin:0; min-height:100vh; background:var(--bg); color:var(--text); font-family:Inter,Arial,Helvetica,sans-serif; }
+    main { width:min(900px,92vw); margin:0 auto; padding:48px 0 64px; } header { margin-bottom:28px; }.tag { display:inline-block; padding:7px 12px; border-radius:999px; background:rgba(91,108,246,.09); color:var(--primary); font-size:11px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; } h1 { margin:12px 0 8px; font-size:clamp(2rem,5vw,3rem); } header p { margin:0; color:var(--muted); }
+    #questions { display:grid; gap:20px; }.card { background:var(--panel); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); padding:26px; }.top-row { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:12px; }.number { color:var(--purple); font-size:14px; font-weight:700; white-space:nowrap; } h2 { margin:0; font-size:clamp(1.2rem,3vw,1.55rem); line-height:1.35; }
+    .answers { display:grid; gap:10px; margin-top:18px; }.answer { display:flex; align-items:center; gap:12px; width:100%; padding:13px 15px; border:1px solid var(--line); border-radius:8px; background:#fff; color:var(--text); cursor:pointer; font:inherit; text-align:left; transition:background .15s,border-color .15s; }.answer:not(:disabled):hover { border-color:var(--primary); background:#f5f8ff; }.answer:disabled { cursor:default; }.answer b { width:29px; height:29px; flex:none; display:grid; place-items:center; border-radius:7px; background:#eff6ff; color:var(--primary); font-size:12px; }.answer.correct { background:#ecfdf3; border-color:#59c8a4; }.answer.correct b { background:#d8f7eb; color:var(--green); }.answer.wrong { background:#fff4f5; border-color:#f0a6b5; }.answer.wrong b { background:#ffe4e8; color:var(--red); }.feedback { min-height:24px; margin:15px 0 0; color:var(--muted); line-height:1.5; }.feedback strong { color:var(--text); }
+    @media (max-width:560px) { main { padding-top:30px; }.card { padding:20px; }.top-row { align-items:flex-start; flex-direction:column; gap:8px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header><span class="tag">PF101 Quiz Arena</span><h1>All questions</h1><p id="question-count"></p></header>
+    <section id="questions" aria-label="Question bank"></section>
+  </main>
+  <script>
+    const questions = [
+      {q:'Which keyword declares a variable that can be reassigned in JavaScript?',a:['const','let','static','fixed'],c:1,cat:'JavaScript Basics',d:'Easy',e:'let creates a block-scoped variable that may be reassigned.'},
+      {q:'What data type represents true or false?',a:['String','Number','Boolean','Array'],c:2,cat:'Variables and Data Types',d:'Easy',e:'A Boolean holds one of two logical values: true or false.'},
+      {q:'Which HTML element creates the largest heading?',a:['<heading>','<h6>','<head>','<h1>'],c:3,cat:'HTML Basics',d:'Easy',e:'<h1> is the highest-level HTML heading.'},
+      {q:'Which CSS property changes the color of text?',a:['font-color','text-color','color','foreground'],c:2,cat:'CSS Basics',d:'Easy',e:'The color property sets an element’s text color.'},
+      {q:'What operator checks both value and type in JavaScript?',a:['==','===','=','!='],c:1,cat:'Operators',d:'Medium',e:'Strict equality (===) compares value without type coercion.'},
+      {q:'What is the output of 5 % 2?',a:['2.5','1','2','0'],c:1,cat:'Operators',d:'Easy',e:'The modulus operator returns the remainder: 5 divided by 2 leaves 1.'},
+      {q:'Which loop is best when the number of repetitions is known?',a:['while','for','do...while','if'],c:1,cat:'Loops',d:'Easy',e:'A for loop keeps initialization, condition, and update together.'},
+      {q:'Which flowchart shape usually represents a decision?',a:['Rectangle','Oval','Diamond','Parallelogram'],c:2,cat:'Algorithms and Flowcharts',d:'Medium',e:'A diamond represents a branch or yes/no decision.'},
+      {q:'What will Number("7") + 3 evaluate to?',a:['73','10','NaN','Error'],c:1,cat:'JavaScript Basics',d:'Medium',e:'Number converts the string to 7, so normal numeric addition gives 10.'},
+      {q:'Which statement runs code only when a condition is true?',a:['for','if','function','return'],c:1,cat:'Conditional Statements',d:'Easy',e:'An if statement conditionally runs its block.'},
+      {q:'What does an algorithm describe?',a:['A computer brand','A step-by-step solution','A CSS selector','A variable type'],c:1,cat:'Algorithms and Flowcharts',d:'Easy',e:'An algorithm is a finite set of steps to solve a problem.'},
+      {q:'Which CSS layout model is designed for one-dimensional rows or columns?',a:['Grid','Flexbox','Float','Table'],c:1,cat:'CSS Basics',d:'Medium',e:'Flexbox distributes items along one main axis.'},
+      {q:'What does the && operator mean?',a:['OR','NOT','Assignment','AND'],c:3,cat:'Operators',d:'Medium',e:'&& is logical AND: both expressions must be true.'},
+      {q:'Which HTML attribute provides alternative text for an image?',a:['src','alt','title','href'],c:1,cat:'HTML Basics',d:'Easy',e:'The alt attribute describes an image for accessibility and fallback.'},
+      {q:'What is an infinite loop?',a:['A loop that never meets its stopping condition','A loop with 1000 iterations','A function with no return','A loop with a variable'],c:0,cat:'Loops',d:'Medium',e:'An infinite loop continues forever because its condition never becomes false.'},
+      {q:'What is the value of Boolean(0) in JavaScript?',a:['true','false','0','undefined'],c:1,cat:'Variables and Data Types',d:'Hard',e:'Zero is a falsy value, so Boolean(0) is false.'},
+      {q:'What does the ! operator do to a Boolean value?',a:['Adds one','Negates it','Compares it','Declares it'],c:1,cat:'Conditional Statements',d:'Medium',e:'! reverses truthiness: !true becomes false.'},
+      {q:'Which JavaScript array method adds an item to the end?',a:['pop()','shift()','push()','slice()'],c:2,cat:'JavaScript Basics',d:'Medium',e:'push() appends one or more elements to an array.'}
+    ];
+    const questionList = document.getElementById('questions');
+    const escapeHtml = value => String(value).replace(/[&<>"']/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character]));
+    document.getElementById('question-count').textContent = `${questions.length} questions available — choose an answer to reveal the explanation.`;
+    questions.forEach((question, questionIndex) => {
+      const card = document.createElement('article'); card.className = 'card';
+      card.innerHTML = `<div class="top-row"><span class="tag">${escapeHtml(question.cat)} · ${escapeHtml(question.d)}</span><span class="number">Question ${questionIndex + 1}</span></div><h2>${escapeHtml(question.q)}</h2><div class="answers"></div><p class="feedback" aria-live="polite"></p>`;
+      const answers = card.querySelector('.answers'); const feedback = card.querySelector('.feedback');
+      question.a.forEach((answer, answerIndex) => {
+        const button = document.createElement('button'); button.type = 'button'; button.className = 'answer'; button.innerHTML = `<b>${String.fromCharCode(65 + answerIndex)}</b>${escapeHtml(answer)}`;
+        button.addEventListener('click', () => { answers.querySelectorAll('.answer').forEach((item, index) => { item.disabled = true; if (index === question.c) item.classList.add('correct'); if (index === answerIndex && index !== question.c) item.classList.add('wrong'); }); feedback.innerHTML = answerIndex === question.c ? `<strong>Correct!</strong> ${question.e}` : `<strong>Not quite.</strong> ${question.e}`; });
+        answers.appendChild(button);
+      }); questionList.appendChild(card);
+    });
+  </script>
+</body>
+</html>

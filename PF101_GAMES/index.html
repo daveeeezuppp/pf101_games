@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="PF101 Quiz Arena - programming fundamentals quiz game">
+  <title>PF101 Quiz Arena</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <main class="app-shell">
+    <header class="topbar"><button class="brand" data-home aria-label="Return home"><span>PF101</span> QUIZ ARENA</button><div class="topbar-actions"><button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">☾ <span>Dark mode</span></button><div class="status-dot">ONLINE <i></i></div></div></header>
+
+    <section id="home" class="screen active hero">
+      <div class="hero-copy"><p class="eyebrow">// LEVEL UP YOUR LOGIC</p><h1>Code. Think.<br><em>Conquer.</em></h1><p class="intro">Sharpen your programming fundamentals in the neon-lit arena. Challenge yourself or battle a friend in a local PVP match.</p><div class="hero-actions"><button class="btn primary" data-open="single-setup">▶ Start Solo Mission</button><button class="btn secondary" data-open="multi-setup">⚔ Start PVP Battle</button></div><div class="quick-links"><button data-modal="instructions">How to play</button><button data-modal="scores">Hall of fame</button><a href="question.html" class="text-btn">View all questions</a></div></div>
+      <div class="arena-art" aria-hidden="true"><div class="orb"></div><div class="code-card"><small>MISSION STATUS</small><strong>READY</strong><span>8 TOPICS · 3 DIFFICULTIES</span></div><div class="bracket b1">{ }</div><div class="bracket b2">&lt;/&gt;</div></div>
+    </section>
+
+    <section id="single-setup" class="screen mode-dashboard">
+      <aside class="dash-sidebar"><p class="eyebrow">PLAYER HUB</p><h2>SOLO<br><em>MISSION</em></h2><nav><button class="active">⌁ Mission control</button><button data-modal="scores">♜ My high scores</button><button data-modal="instructions">? How to play</button></nav><button class="text-btn back-link" data-home>← Command center</button></aside>
+      <div class="dash-main"><div class="dash-heading"><div><p class="eyebrow">SOLO DASHBOARD</p><h1>Ready to train?</h1><p>Set your challenge parameters, then enter a 10-question programming sprint.</p></div><div class="dash-badge">01<br><small>PLAYER</small></div></div><div class="dashboard-grid"><article class="launch-panel"><div class="panel-kicker">NEXT CHALLENGE</div><h3>Programming<br>Fundamentals</h3><ul><li>10 randomized questions</li><li>Time bonus enabled</li><li>Instant answer explanations</li></ul><form id="single-form" class="setup-form compact-form"><label>Player alias<input id="single-name" maxlength="20" placeholder="e.g. Ada" required></label><label>Difficulty<select id="single-difficulty"><option value="Easy">Easy — 20 seconds</option><option value="Medium" selected>Medium — 15 seconds</option><option value="Hard">Hard — 12 seconds</option></select></label><button class="btn primary" type="submit">Launch solo mission →</button></form></article><div class="dash-side-cards"><article class="dash-card"><span>◈</span><small>YOUR BEST</small><strong id="solo-best">—</strong><p>Complete a mission to set your record.</p></article><article class="dash-card"><span>⌁</span><small>ARENA RULE</small><strong>Fast = more</strong><p>Correct answers earn 100 points plus remaining-time bonus.</p></article></div></div></div>
+    </section>
+
+    <section id="multi-setup" class="screen mode-dashboard versus-dashboard">
+      <aside class="dash-sidebar"><p class="eyebrow">PVP BATTLE HUB</p><h2>LOCAL<br><em>PVP BATTLE</em></h2><nav><button class="active">⚔ PVP setup</button><button data-modal="instructions">? Battle rules</button><button data-home>⌂ Command center</button></nav><p class="device-note">ONE DEVICE<br><span>Pass the screen after every turn.</span></p></aside>
+      <div class="dash-main"><div class="dash-heading"><div><p class="eyebrow">LOCAL PVP MULTIPLAYER</p><h1>Choose your rivals.</h1><p>Each player gets 10 random questions. Players alternate turns, and every question is different.</p></div><div class="dash-badge vs">PVP<br><small>LOCAL</small></div></div><div class="vs-players"><div><span>P1</span><strong>PLAYER ONE</strong></div><b>VS</b><div><span>P2</span><strong>PLAYER TWO</strong></div></div><article class="launch-panel battle-panel"><div class="panel-kicker">PVP MATCH CONFIGURATION</div><form id="multi-form" class="setup-form two-col compact-form"><label>Player 1 alias<input id="p1-name" maxlength="20" placeholder="Player One" required></label><label>Player 2 alias<input id="p2-name" maxlength="20" placeholder="Player Two" required></label><label>Difficulty<select id="multi-difficulty"><option value="Easy">Easy — 20 seconds</option><option value="Medium" selected>Medium — 15 seconds</option><option value="Hard">Hard — 12 seconds</option></select></label><div class="match-info">10 questions per player<br><span>20 unique questions · alternating turns</span></div><button class="btn primary" type="submit">Start PVP battle ⚔</button></form></article></div>
+    </section>
+
+    <section id="quiz" class="screen quiz-screen"><div class="quiz-top"><div><p id="turn-label" class="eyebrow"></p><h2 id="player-label">PLAYER</h2></div><div class="timer"><svg viewBox="0 0 42 42"><circle class="timer-track" cx="21" cy="21" r="18"/><circle id="timer-ring" class="timer-ring" cx="21" cy="21" r="18"/></svg><b id="timer-value">15</b></div></div><div id="scoreboard" class="scoreboard hidden"></div><div class="progress-row"><span id="progress-text">Question 1 / 10</span><div class="progress"><i id="progress-bar"></i></div><span id="category-label">Category</span></div><article class="question-card"><div class="tag-row"><span id="difficulty-tag" class="tag">MEDIUM</span><span id="points-tag">+100 PTS</span></div><h3 id="question-text"></h3><div id="answers" class="answers"></div><p id="feedback" class="feedback" aria-live="polite"></p></article></section>
+
+    <section id="results" class="screen results"><p id="result-eyebrow" class="eyebrow">MISSION COMPLETE</p><h2 id="result-title">Great run!</h2><div id="result-content"></div><div class="result-actions"><button id="again-btn" class="btn primary">Play again</button><button class="btn secondary" data-home>Command center</button></div></section>
+  </main>
+
+  <div id="modal" class="modal" aria-hidden="true"><div class="modal-panel"><button id="modal-close" class="close" aria-label="Close">×</button><div id="modal-content"></div></div></div>
+  <script src="script.js"></script>
+</body>
+</html>
